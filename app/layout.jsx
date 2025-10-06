@@ -1,13 +1,19 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Jomolhari, Kantumruy_Pro, Outfit } from "next/font/google";
 import "./globals.sass";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jomolHari = Jomolhari({
+  variable: "--font-jomol-hari",
+  weight: "400",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
+const kantumruyPro = Kantumruy_Pro({
+  variable: "--font-kantumruy-pro",
   subsets: ["latin"],
 });
 
@@ -52,7 +58,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${jomolHari.variable} ${kantumruyPro.variable} ${outfit.variable}`}>
         {children}
       </body>
     </html>

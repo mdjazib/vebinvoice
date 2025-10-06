@@ -1,0 +1,93 @@
+$base: var(--base-color)
+$accent: var(--accent-color)
+$text: var(--text-color)
+
+#dashboard
+    &[aria-description=--dark]
+        background-color: lch(from $base calc(l + 2) c h)
+        header
+            background-color: lch(from $base calc(l - 3) c h)
+            .search
+                background-color: $base
+                border-color: lch(from $base calc(l + 4) c h)
+                svg
+                    color: lch(from $text calc(l - 50) c h)
+                input
+                    color: $text
+                    &::placeholder
+                        color: lch(from $text calc(l - 50) c h)
+            .cta
+                .create_invoice,
+                .theme_switch
+                    border-color: lch(from $base calc(l + 10) c h)
+                    color: lch(from $text calc(l - 10) c h)
+        main
+            nav
+                background-color: lch(from $base calc(l - 3) c h)
+                ul
+                    li
+                        h5
+                            color: lch(from $text calc(l - 40) c h)
+                        a
+                            color: lch(from $text calc(l - 10) c h)
+                            &:hover
+                                background-color: $base
+                        .active
+                            background-color: lch(from $accent l c h / 15%)
+                            color: $accent
+                            &:hover
+                                background-color: lch(from $accent l c h / 15%)
+                &[aria-current="true"]
+                    border-color: lch(from $base calc(l + 2) c h)
+            .viewport
+                background-color: $base
+                .page
+                    .overview,.recents, .more .dcoll
+                        background-color: lch(from $base calc(l + 2) c h)
+                        border-color: lch(from $base calc(l + 4) c h)
+                        .header
+                            h2
+                                color: lch(from $text calc(l - 20) c h)
+                            a
+                                color: lch(from $text calc(l - 20) c h)
+                            .switches
+                                background-color: lch(from $base calc(l + 2) c h)
+                                border-color: lch(from $base calc(l + 8) c h)
+                                p
+                                    color: lch(from $text calc(l - 40) c h)
+                                    &:hover
+                                        background-color: lch(from $base calc(l + 8) c h)
+                                .active
+                                    color: $text
+                                    border: 1px solid lch(from $base calc(l + 10) c h)
+                                    background-color: lch(from $base calc(l + 8) c h)
+                    .overview
+                        .cards
+                            border-color: lch(from $base calc(l + 8) c h)
+                            background-color: lch(from $base calc(l + 8) c h)
+                            .card
+                                background-color: lch(from $base calc(l + 2) c h)
+                                p
+                                    color: lch(from $text calc(l - 40) c h)
+                                h1
+                                    color: lch(from $text calc(l - 10) c h)
+                    .collxb
+                        .recents
+                            table
+                                thead,tbody
+                                    tr
+                                        th
+                                            color: lch(from $text calc(l - 20) c h)
+                                        td
+                                            color: lch(from $text calc(l - 30) c h)
+                    .powered
+                        color: lch(from $text calc(l - 40) c h)
+                    .more
+                        .dcoll
+                            .details
+                                p
+                                    color: lch(from $text calc(l - 20) c h)
+                            &:nth-last-child(1)
+                                .ads
+                                    span
+                                        color: lch(from $text calc(l - 50) c h)

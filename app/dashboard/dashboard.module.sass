@@ -1,0 +1,291 @@
+@import "./dark.module"
+$kantumruy: var(--font-kantumruy-pro)
+$jomol: var(--font-jomol-hari)
+$outfit: var(--font-outfit)
+$base: var(--base-color)
+$accent: var(--accent-color)
+$text: var(--text-color)
+
+@mixin flex($j:flex-start,$a:center,$d:row,$g:0px)
+    display: flex
+    justify-content: $j
+    align-items: $a
+    flex-direction: $d
+    gap: $g
+
+#dashboard
+    height: 100svh
+    width: 100vw
+    background-color: lch(from $base calc(l - 8) c h)
+    @include flex($a: flex-start,$d: column,$g: 1px)
+    header
+        background-color: $base
+        width: 100%
+        min-height: 50px
+        height: 50px
+        @include flex($j:space-between,$g:10px)
+        padding: 0px 10px
+        @media (max-width:800px)
+            flex-direction: row-reverse
+        .logo
+            @include flex($g: 10px)
+            svg
+                fill: $text
+            h1
+                font-size: 16px
+                font-family: $jomol
+                color: $text
+                font-weight: 400
+                white-space: nowrap
+        .search
+            width: 100%
+            border-radius: 10px
+            background-color: lch(from $base calc(l - 4) c h)
+            border: 1px solid lch(from $base calc(l - 8) c h)
+            max-width: 400px
+            overflow: hidden
+            position: relative
+            height: 28px
+            @media (max-width:800px)
+                display: none
+            input
+                width: 100%
+                height: 100%
+                border: none
+                outline: none
+                color: $text
+                background-color: transparent
+                font-size: 12px
+                padding: 0px 33px 0px 13px
+                &::placeholder
+                    color: lch(from $text calc(l + 50) c h)
+            svg
+                position: absolute
+                right: 13px
+                width: 14px
+                height: 14px
+                top: 50%
+                transform: translateY(-50%)
+                color: lch(from $text calc(l + 50) c h)
+        .cta
+            @include flex($j:flex-end,$g:10px)
+            &:nth-child(1)
+                @media (min-width:800px)
+                    display: none
+            .theme_switch,
+            .create_invoice
+                transition: .1s ease
+                height: 26.5px
+                border: 1px solid $text
+                cursor: pointer
+                @include flex($j:center)
+                color: $text
+                border-radius: 10px
+                @media (min-width:800px)
+                    &:hover
+                        background-color: $text
+                        color: $base
+            .theme_switch
+                width: 27px
+                svg
+                    height: 14px
+                    width: 14px
+            .create_invoice
+                font-size: 11px
+                padding: 0px 14px
+                white-space: nowrap
+                font-weight: 500
+                @media (max-width:800px)
+                    display: none
+    main
+        width: 100%
+        @include flex($a:flex-start,$g: 1px)
+        height: 100%
+        position: relative
+        nav
+            background-color: $base
+            height: 100%
+            min-width: 270px
+            padding: 20px
+            @include flex($a:flex-start,$d: column,$g: 14px)
+            @media (max-width:800px)
+                display: none
+                position: absolute
+                left: 0px
+                top: 0px
+            ul
+                list-style: none
+                width: 100%
+                @include flex($a:flex-start,$d: column,$g: 4px)
+                li
+                    width: 100%
+                    h5
+                        font-weight: 400
+                        font-size: 10px
+                        color: lch(from $text calc(l + 40) c h)
+                        margin-bottom: 6px
+                        text-transform: uppercase
+                    a
+                        color: lch(from $text calc(l + 10) c h)
+                        @include flex($g:9px )
+                        border-radius: 8px
+                        text-decoration: none
+                        padding: 10px 12px
+                        width: 100%
+                        span
+                            font-size: 13px
+                        svg
+                            width: 18px
+                            height: 18px
+                            stroke-width: 1.6
+                        &:hover
+                            background-color: lch(from $base calc(l - 2) c h)
+                    .active
+                        background-color: lch(from $accent l c h / 5%)
+                        color: $accent
+                        &:hover
+                            background-color: lch(from $accent l c h / 5%)
+            &[aria-current="true"]
+                border-right: 1px solid lch(from $base calc(l - 8) c h)
+                display: flex
+                &::before
+                    content: ""
+                    position: fixed
+                    right: 0px
+                    bottom: 0px
+                    backdrop-filter: blur(4px)
+                    width: calc( 100vw - 270px )
+                    height: calc(100svh - 51px)
+        .viewport
+            background-color: lch(from $base calc(l - 4) c h)
+            height: calc(100svh - 51px)
+            width: 100%
+            overflow-y: overlay
+            .page
+                padding: 15px
+                width: 100%
+                @include flex($a: flex-start,$d: column,$g: 15px)
+                .overview,.recents,.more .dcoll
+                    width: 100%
+                    background-color: $base
+                    border: 1px solid lch(from $base calc(l - 8) c h)
+                    border-radius: 10px
+                    @include flex($a: flex-start,$d: column,$g: 15px)
+                    padding: 20px
+                    .header
+                        @include flex($j:space-between,$g: 10px)
+                        width: 100%
+                        h2
+                            font-family: $outfit
+                            font-size: 18px
+                            font-weight: 500
+                            color: lch(from $text calc(l + 20) c h)
+                        a
+                            text-decoration: none
+                            cursor: pointer
+                            color: lch(from $text calc(l + 20) c h)
+                            font-size: 12px
+                            &:hover
+                                color: $text
+                        .switches
+                            @include flex($g:2px)
+                            background-color: lch(from $base calc(l - 2) c h)
+                            border: 1px solid lch(from $base calc(l - 4) c h)
+                            border-radius: 6px
+                            padding: 5px 6px
+                            p
+                                padding: 5px 6px
+                                font-size: 12px
+                                color: lch(from $text calc(l + 40) c h)
+                                cursor: pointer
+                                border-radius: 5px
+                                &:hover
+                                    background-color: $base
+                            .active
+                                color: $text
+                                border: 1px solid lch(from $base calc(l - 4) c h)
+                                background-color: $base
+                    .cards
+                        display: flex
+                        width: 100%
+                        flex-wrap: wrap
+                        gap: 1px
+                        border: 1px solid lch(from $base calc(l - 6) c h)
+                        background-color: lch(from $base calc(l - 6) c h)
+                        border-radius: 10px
+                        overflow: hidden
+                        .card
+                            flex-grow: 1
+                            padding: 14px 14px 7px 14px
+                            background-color: $base
+                            @include flex($a: flex-start,$d: column,$g: 2px)
+                            p
+                                color: lch(from $text calc(l + 40) c h)
+                                @include flex($g: 8px)
+                                svg
+                                    width: 16px
+                                    height: 16px
+                                span
+                                    font-size: 14px
+                            h1
+                                color: lch(from $text calc(l + 10) c h)
+                                font-family: $jomol
+                .more
+                    width: 100%
+                    height: 100%
+                    @include flex($a: flex-start,$d: column,$g: 15px)
+                    @media (min-width:1200px)
+                        max-width: 400px
+                    .dcoll
+                        @include flex($a: flex-start,$d: column,$g: 15px)
+                        width: 100%
+                        .details
+                            width: 100%
+                            @include flex($a: flex-start,$d: column,$g: 10px)
+                            p
+                                width: 100%
+                                font-size: 14px
+                                color: lch(from $text calc(l + 20) c h)
+                        &:nth-last-child(1)
+                            height: 242px
+                            .ads
+                                width: 100%
+                                height: 100%
+                                @include flex($j: center)
+                                span
+                                    font-size: 12px
+                                    color: lch(from $text calc(l + 50) c h)
+                .collxb
+                    width: 100%
+                    height: 100%
+                    @include flex($a:flex-start,$g: 15px)
+                    .recents
+                        height: 100%
+                        @media (max-width:1200px)
+                            display: none
+                        table
+                            border-spacing: 0px
+                            width: 100%
+                            height: 100%
+                            thead
+                                tr
+                                    th
+                                        text-align: left
+                            thead,tbody
+                                tr
+                                    th,td
+                                        font-size: 14px
+                                        padding: 15px 4px
+                                    th
+                                        color: lch(from $text calc(l + 20) c h)
+                                    td
+                                        color: lch(from $text calc(l + 40) c h)
+                .powered
+                    font-size: 10px
+                    @include flex($j:space-between,$g: 10px)
+                    color: lch(from $text calc(l + 40) c h)
+                    width: 100%
+                    .col
+                        @include flex($j:space-between,$g: 10px)
+                    @media (max-width:800px)
+                        flex-direction: column
