@@ -1,0 +1,140 @@
+$kantumruy: var(--font-kantumruy-pro)
+$jomol: var(--font-jomol-hari)
+$outfit: var(--font-outfit)
+$base: lch(100 0 0)
+$accent: lch(36.94 59.85 9.8)
+$text: lch(3.32 0 0)
+
+@mixin flex($j:flex-start,$a:center,$d:row,$g:0px)
+    display: flex
+    justify-content: $j
+    align-items: $a
+    flex-direction: $d
+    gap: $g
+
+.veb_invoice_preview
+    background-color: $base
+    height: fit-content
+    padding: 20px
+    width: 100%
+    @include flex($a:flex-start,$d:column,$g:15px)
+    .header
+        @include flex($j:space-between,$a:flex-start)
+        width: 100%
+        .col
+            @include flex($g:10px)
+            img
+                width: 50px
+                height: 50px
+                object-fit: cover
+            .text
+                b
+                    text-transform: uppercase
+                    font-size: 12px
+                    font-family: $kantumruy
+                    color: lch(from $text calc(l + 20) c h)
+                h1
+                    font-family: $jomol
+                    font-size: 26px
+                    line-height: 36px
+            &:nth-last-child(1)
+                @include flex($j: flex-start,$a:flex-end ,$d: column)
+                p
+                    color: lch(from $text calc(l + 50) c h)
+                    font-size: 16px
+                b
+                    color: lch(from $text calc(l + 20) c h)
+                    font-weight: 500
+                    font-size: 12px
+    .details
+        width: 100%
+        @include flex($a: flex-start,$g: 15px)
+        table
+            width: 100%
+            tbody
+                width: 100%
+                tr
+                    th,td
+                        background-color: $base
+                        padding: 2px 0px
+                        text-align: left
+                        font-size: 11px
+                        color: lch(from $text calc(l + 30) c h)
+                    th
+                        white-space: nowrap
+                        font-weight: 600
+                        display: flex
+                        align-items: flex-start
+                    td
+                        width: 100%
+                        padding-left: 4px
+                    &:nth-child(2)
+                        th
+                            padding-top: 6px
+    .description
+        width: 100%
+        table
+            width: inherit
+            tr
+                th,td
+                    color: lch(from $text calc(l + 30) c h)
+                    background-color: $base
+                    padding: 6px 8px
+                    font-size: 13px
+                    text-align: left
+                th
+                    font-weight: 600
+                td
+                    color: lch(from $text calc(l + 40) c h)
+            tr
+                td,th
+                    &:nth-last-child(1),
+                    &:nth-last-child(2),
+                    &:nth-last-child(3)
+                        text-align: right
+                        white-space: nowrap
+                    &:nth-last-child(4)
+                        text-align: center
+                    &:nth-child(1)
+                        width: 100%
+            thead
+                tr
+                    th
+                        border-bottom: 1px dashed lch(from $base calc(l - 20) c h)
+            tbody
+                tr
+                    &:nth-child(2n)
+                        td
+                            background-color: lch(from $base calc(l - 2) c h)
+            tfoot
+                tr
+                    &:nth-child(1)
+                        td,th
+                            border-top: 1px dashed lch(from $base calc(l - 20) c h)
+    .note
+        width: 100%
+        @include flex($a:flex-start,$d:column,$g:5px)
+        b
+            color: lch(from $text calc(l + 30) c h)
+            font-size: 14px
+            font-weight: 500
+        p
+            font-size: 11px
+            color: lch(from $text calc(l + 40) c h)
+    .further
+        width: 100%
+        @include flex($a:flex-start,$d:column,$g:6px)
+        h2
+            font-size: 11px
+            color: lch(from $text calc(l + 30) c h)
+            font-weight: 600
+        .grid
+            width: 100%
+            display: grid
+            grid-template-columns: repeat(auto-fit,minmax(200px,1fr))
+            gap: 4px
+            p
+                font-size: 11px
+                color: lch(from $text calc(l + 30) c h)
+                b
+                    font-weight: 600

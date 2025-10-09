@@ -5,6 +5,19 @@ $text: var(--text-color)
 #dashboard
     &[aria-description=--dark]
         background-color: lch(from $base calc(l + 2) c h)
+        .modal_overlay
+            .create_invoice
+                color: lch(from $text calc(l - 10) c h)
+                border-color: lch(from $base calc(l + 6) c h)
+                .input
+                    p
+                        color: lch(from $text calc(l - 30) c h)
+                    input
+                        border-color: lch(from $base calc(l + 14) c h)
+                .cta
+                    button
+                        color: lch(from $text calc(l - 40) c h)
+                        background-color: lch(from $base calc(l + 4) c h)
         header
             background-color: lch(from $base calc(l - 3) c h)
             .search

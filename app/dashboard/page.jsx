@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const page = () => {
     return (
-        <div className={sass.page}>
+        <div className={`${sass.page} ${sass.padding}`}>
             <div className={sass.overview}>
                 <div className={sass.header}>
                     <h2>Overview</h2>

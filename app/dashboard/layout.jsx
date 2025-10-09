@@ -2,11 +2,16 @@
 import React, { useEffect, useState } from "react"
 import sass from "./dashboard.module.sass"
 import Logo from "../Logo"
-import { BadgePlus, LayoutGrid, Moon, ScanText, Scroll, ScrollText, Settings, Sun, TextAlignJustify, Users, X } from "lucide-react"
+import { BadgePlus, LayoutGrid, LogOut, Moon, ScanText, Scroll, ScrollText, Sun, TextAlignJustify, X } from "lucide-react"
 import Link from "next/link"
+import CreateInvoice from "@/modal/CreateInvoice"
+import { usePathname } from "next/navigation"
+import { Toaster } from "sonner"
 
 const RootLayout = ({ children }) => {
+    const pathname = usePathname();
     const [menu, setMenu] = useState(false);
+    const [createInvoiceModal, setCreateInvoiceModal] = useState(false);
     const [appTheme, setAppTheme] = useState(true);
     const theme = {
         light: {
@@ -29,47 +34,50 @@ const RootLayout = ({ children }) => {
         setAppTheme(localStorage.getItem("vebinvoice.theme") === "false" ? false : true);
     }, []);
     return (
-        <div id={sass.dashboard} aria-description={appTheme ? "--light" : "--dark"} style={appTheme ? theme.light : theme.dark}>
-            <header>
-                <div className={sass.cta}>
-                    <div className={sass.theme_switch} onClick={() => { setMenu(!menu) }}>{menu ? <X /> : <TextAlignJustify />}</div>
-                </div>
-                <div className={sass.logo}>
-                    <Logo />
-                    <h1>Veb Invoice</h1>
-                </div>
-                <div className={sass.search}>
-                    <input type="text" placeholder="Search everything ( Ctrl + K )" />
-                    <ScanText />
-                </div>
-                <div className={sass.cta}>
-                    <div className={sass.create_invoice}>Create Invoice</div>
-                    <div className={sass.theme_switch} onClick={updateTheme}>{appTheme ? <Moon /> : <Sun />}</div>
-                </div>
-            </header>
-            <main>
-                <nav aria-current={menu}>
-                    <ul>
-                        <li><h5>Menu</h5></li>
-                        <li><Link href="/dashboard" className={sass.active}><LayoutGrid /><span>Dashboard</span></Link></li>
-                    </ul>
-                    <ul>
-                        <li><h5>Invoice</h5></li>
-                        <li><Link href="/dashboard/invoice/create"><BadgePlus /><span>New Invoice</span></Link></li>
-                        <li><Link href="/dashboard/invoice/view"><ScrollText /><span>All Invoices</span></Link></li>
-                    </ul>
-                    <ul>
-                        <li><h5>More</h5></li>
-                        <li><Link href="/dashboard/customers"><Users /><span>Customers</span></Link></li>
-                        <li><Link href="/dashboard/template"><Scroll /><span>Template</span></Link></li>
-                        <li><Link href="/dashboard/settings"><Settings /><span>Settings</span></Link></li>
-                    </ul>
-                </nav>
-                <div className={sass.viewport}>
-                    {children}
-                </div>
-            </main>
-        </div>
+        <>
+            <Toaster position="top-center" />
+            <div id={sass.dashboard} aria-description={appTheme ? "--light" : "--dark"} style={appTheme ? theme.light : theme.dark}>
+                {createInvoiceModal && <CreateInvoice setCreateInvoiceModal={setCreateInvoiceModal} />}
+                <header>
+                    <div className={sass.cta}>
+                        <div className={sass.theme_switch} onClick={() => { setMenu(!menu) }}>{menu ? <X /> : <TextAlignJustify />}</div>
+                    </div>
+                    <div className={sass.logo}>
+                        <Logo />
+                        <h1>Veb Invoice</h1>
+                    </div>
+                    <div className={sass.search}>
+                        <input type="text" placeholder="Search everything ( Ctrl + K )" />
+                        <ScanText />
+                    </div>
+                    <div className={sass.cta}>
+                        <div className={sass.create_invoice} onClick={() => { setCreateInvoiceModal(!createInvoiceModal) }}>Create Invoice</div>
+                        <div className={sass.theme_switch} onClick={updateTheme}>{appTheme ? <Moon /> : <Sun />}</div>
+                    </div>
+                </header>
+                <main>
+                    <nav aria-current={menu}>
+                        <ul>
+                            <li><h5>Menu</h5></li>
+                            <li><Link href="/dashboard" className={pathname === "/dashboard" ? sass.active : sass.inactive}><LayoutGrid /><span>Dashboard</span></Link></li>
+                        </ul>
+                        <ul>
+                            <li><h5>Invoice</h5></li>
+                            <li><Link href="javascript:void(0)" className={pathname === "/dashboard/invoice/create" ? sass.active : sass.inactive} onClick={() => { setCreateInvoiceModal(!createInvoiceModal) }}><BadgePlus /><span>New Invoice</span></Link></li>
+                            <li><Link href="/dashboard/invoice/view"><ScrollText /><span>All Invoices</span></Link></li>
+                            <li><Link href="/dashboard/template"><Scroll /><span>Template</span></Link></li>
+                        </ul>
+                        <ul>
+                            <li><h5>Account</h5></li>
+                            <li><Link href="javascript:void(0)"><LogOut /><span>Log out</span></Link></li>
+                        </ul>
+                    </nav>
+                    <div className={sass.viewport}>
+                        {children}
+                    </div>
+                </main>
+            </div>
+        </>
     )
 }
 

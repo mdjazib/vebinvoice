@@ -1,0 +1,104 @@
+$kantumruy: var(--font-kantumruy-pro)
+$jomol: var(--font-jomol-hari)
+$outfit: var(--font-outfit)
+$base: lch(100 0 0)
+$accent: lch(36.94 59.85 9.8)
+$text: lch(3.32 0 0)
+
+@mixin flex($j:flex-start,$a:center,$d:row,$g:0px)
+    display: flex
+    justify-content: $j
+    align-items: $a
+    flex-direction: $d
+    gap: $g
+
+.auth
+    width: 100vw
+    height: 100svh
+    padding: 25px
+    background-color: lch(from $base calc(l - 6) c h)
+    @include flex($j: center)
+    form
+        @include flex($j: center,$d: column,$g: 10px)
+        width: 100%
+        max-width: 350px
+        .header
+            @include flex($j: center,$d: column,$g: 2px)
+            svg
+                fill: $text
+                width: 30px
+                height: 30px
+            h2
+                font-family: $jomol
+                font-weight: 500
+                color: $text
+            p
+                font-family: $kantumruy
+                color: lch(from $text calc(l + 20) c h)
+                font-size: 12px
+        .input
+            width: 100%
+            background-color: $base
+            border-radius: 10px
+            border: 1px solid lch(from $base calc(l - 15) c h)
+            height: 44px
+            position: relative
+            margin-top: 5px
+            input
+                width: 100%
+                height: 100%
+                border: none
+                outline: none
+                background-color: transparent
+                padding: 16px 14px 4px 14px
+                color: $text
+                &::placeholder
+                    color: transparent
+                &:focus,
+                &:not(:placeholder-shown)
+                    ~p
+                        font-size: 10px
+                        top: 12px
+                        left: 14px
+            p
+                transition: .2s ease
+                position: absolute
+                top: 50%
+                left: 14px
+                color: lch(from $text calc(l + 40) c h)
+                transform: translateY(-50%)
+                font-size: 13px
+        input
+            &[type=submit]
+                transition: .2s ease
+                height: 40px
+                width: 100%
+                background-color: lch(from $text calc(l + 10) c h)
+                border-radius: 10px
+                border: 1px solid lch(from $base calc(l - 15) c h)
+                outline: none
+                color: $base
+                font-weight: 500
+                font-size: 14px
+                cursor: pointer
+                &:hover
+                    background-color: $text
+                &[disabled]
+                    background-color: lch(from $text calc(l + 20) c h)
+                    color: lch(from $base calc(l - 20) c h)
+                    pointer-events: none
+        .loader
+            height: 40px
+            width: 100%
+            background-color: lch(from $text calc(l + 10) c h)
+            border-radius: 10px
+            border: 1px solid lch(from $base calc(l - 15) c h)
+            @include flex($j: center)
+            svg
+                color: $base
+                height: 18px
+                width: 18px
+                animation: loading 1s linear infinite
+                @keyframes loading
+                    100%
+                        rotate: 360deg
