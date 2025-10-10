@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Suspense } from "react";
 import Content from './Content'
 
 const page = () => {
-    return <Content />
+    return (
+        <Suspense fallback={null}>
+            <Content />
+        </Suspense>
+    )
 }
 
 export default page

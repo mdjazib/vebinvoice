@@ -1,3 +1,10 @@
+$kantumruy: var(--font-kantumruy-pro)
+$jomol: var(--font-jomol-hari)
+$outfit: var(--font-outfit)
+$base: lch(100 0 0)
+$accent: lch(36.94 59.85 9.8)
+$text: lch(3.32 0 0)
+
 *
     margin: 0
     padding: 0
@@ -5,3 +12,26 @@
     font-family: var(--font-kantumruy-pro)
     -webkit-tap-highlight-color: transparent
     user-select: none
+
+@mixin flex($j:flex-start,$a:center,$d:row,$g:0px)
+    display: flex
+    justify-content: $j
+    align-items: $a
+    flex-direction: $d
+    gap: $g
+
+.suspense-loading
+    position: fixed
+    width: 100vw
+    height: 100svh
+    z-index: 999
+    @include flex($j:center,$g:10px)
+    background-color: $base
+    color: $text
+    left: 0px
+    top: 0px
+    svg
+        animation: loading .8s linear infinite
+        @keyframes loading
+            100%
+                rotate: 360deg
