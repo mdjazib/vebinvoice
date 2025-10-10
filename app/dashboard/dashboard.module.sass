@@ -202,6 +202,16 @@ $text: var(--text-color)
                             stroke-width: 1.6
                         &:hover
                             background-color: lch(from $base calc(l - 2) c h)
+                    .loader
+                        pointer-events: none
+                        color: $accent
+                        svg
+                            animation: loading .8s linear infinite
+                            @keyframes loading
+                                100%
+                                    rotate: 360deg
+                        &:hover
+                            background-color: unset
                     .active
                         background-color: lch(from $accent l c h / 5%)
                         color: $accent

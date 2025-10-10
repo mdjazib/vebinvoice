@@ -1,5 +1,6 @@
 import { Jomolhari, Kantumruy_Pro, Outfit } from "next/font/google";
 import "./globals.sass";
+import { Toaster } from "sonner";
 
 const jomolHari = Jomolhari({
   variable: "--font-jomol-hari",
@@ -59,6 +60,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${jomolHari.variable} ${kantumruyPro.variable} ${outfit.variable}`}>
+        <Toaster position="top-center" />
         {children}
       </body>
     </html>

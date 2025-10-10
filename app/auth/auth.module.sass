@@ -36,6 +36,21 @@ $text: lch(3.32 0 0)
                 font-family: $kantumruy
                 color: lch(from $text calc(l + 20) c h)
                 font-size: 12px
+        .sent
+            text-align: center
+            background-color: $base
+            border-radius: 10px
+            border: 1px solid lch(from $base calc(l - 15) c h)
+            padding: 15px
+            font-size: 12px
+            @include flex($j: center,$d: column,$g: 5px)
+            a
+                color: $accent
+                cursor: pointer
+                text-decoration: none
+                font-weight: 600
+                &:hover
+                    text-decoration: underline
         .input
             width: 100%
             background-color: $base
@@ -93,7 +108,10 @@ $text: lch(3.32 0 0)
             background-color: lch(from $text calc(l + 10) c h)
             border-radius: 10px
             border: 1px solid lch(from $base calc(l - 15) c h)
-            @include flex($j: center)
+            @include flex($j: center,$g:10px)
+            p
+                font-size: 14px
+                color: $base
             svg
                 color: $base
                 height: 18px
