@@ -97,6 +97,9 @@ $text: lch(3.32 0 0)
                         text-align: center
                     &:nth-child(1)
                         width: 100%
+                        padding-left: 0px
+                    &:nth-last-child(1)
+                        padding-right: 0px
             thead
                 tr
                     th
@@ -136,5 +139,7 @@ $text: lch(3.32 0 0)
             p
                 font-size: 11px
                 color: lch(from $text calc(l + 30) c h)
+                &:nth-child(2n)
+                    padding-left: 8px
                 b
                     font-weight: 600

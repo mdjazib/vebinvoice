@@ -366,21 +366,156 @@ $text: var(--text-color)
                     width: 100%
                     min-height: calc(100svh - 52px)
                     overflow-y: overlay
+                    background-color: $base
                     @include flex($a: flex-start,$g: 1px)
                     .form
                         width: 100%
                         min-height: inherit
-                        background-color: $base
-                    .preview
-                        width: 100%
                         height: calc(100svh - 52px)
+                        @include flex($a: flex-start,$d: column,$g: 15px)
                         padding: 25px
                         overflow-y: overlay
-                        max-width: 600px
-                        @media print
-                            max-width: 100%
-                            padding: 0px
-
+                        background-color: lch(from $base calc( l - 4) c h)
+                        &::-webkit-scrollbar
+                            display: none
+                        button
+                            transition: .1s ease
+                            border: 1px solid lch(from $text calc(l + 50) c h)
+                            color: $text
+                            background-color: transparent
+                            border-radius: 10px
+                            cursor: pointer
+                            width: 100%
+                            background-color: lch(from $text calc(l + 20) c h)
+                            color: $base
+                            min-height: 44px
+                            font-weight: 500
+                            cursor: pointer
+                            font-size: 16px
+                            &:hover
+                                background-color: $text
+                        .header
+                            width: 100%
+                            @include flex($j:space-between,$g:10px)
+                            h2
+                                font-size: 18px
+                                font-family: $outfit
+                                font-weight: 600
+                                color: $text
+                        .group
+                            width: 100%
+                            border-radius: 10px
+                            min-height: fit-content
+                            border: 2px solid lch(from $base calc(l - 6) c h)
+                            @include flex($a: flex-start,$d: column,$g: 2px)
+                            background-color: lch(from $base calc(l - 6) c h)
+                            overflow: hidden
+                            .childheader
+                                transition: .2s ease
+                                width: 100%
+                                padding: 15px
+                                @include flex($j: space-between,$g: 10px)
+                                background-color: $base
+                                color: $text
+                                cursor: pointer
+                                h3
+                                    font-size: 17px
+                                    font-family: $outfit
+                                    font-weight: 600
+                                    color: $text
+                                &:hover
+                                    background-color: lch(from $base calc(l - 1) c h)
+                                    padding: 15px 20px
+                            .content
+                                width: 100%
+                                background-color: $base
+                                padding: 15px
+                                display: none
+                                &[aria-current=true]
+                                    @include flex($a: flex-start,$d: column,$g: 10px)
+                                .row
+                                    display: grid
+                                    width: 100%
+                                    grid-template-columns: repeat(auto-fit,minmax(200px,1fr))
+                                    gap: 10px
+                                .btn
+                                    transition: .1s ease
+                                    border-radius: 10px
+                                    border: 1px solid lch(from $base calc(l - 15) c h)
+                                    height: 44px
+                                    min-width: 44px
+                                    width: 44px
+                                    @include flex($j: center)
+                                    cursor: pointer
+                                    svg
+                                        transition: .1s ease
+                                    &:hover
+                                        background-color: lch(from $base calc(l - 1) c h)
+                                        svg
+                                            scale: .9
+                                .flex
+                                    @include flex($g: 10px)
+                                    width: 100%
+                                .input
+                                    width: 100%
+                                    background-color: $base
+                                    border-radius: 10px
+                                    border: 1px solid lch(from $base calc(l - 15) c h)
+                                    height: 44px
+                                    position: relative
+                                    label
+                                        font-size: 13px
+                                        color: $text
+                                        left: 14px
+                                        padding-top: 13px
+                                        width: 100%
+                                        height: 100%
+                                        position: absolute
+                                        cursor: pointer
+                                    input,textarea
+                                        width: 100%
+                                        height: 100%
+                                        border: none
+                                        resize: none
+                                        outline: none
+                                        background-color: transparent
+                                        padding: 16px 14px 4px 14px
+                                        color: $text
+                                        &::placeholder
+                                            color: transparent
+                                        &:focus,
+                                        &:not(:placeholder-shown)
+                                            ~p
+                                                font-size: 10px
+                                                top: 12px
+                                                left: 14px
+                                    p
+                                        transition: .2s ease
+                                        position: absolute
+                                        top: 50%
+                                        left: 14px
+                                        pointer-events: none
+                                        color: lch(from $text calc(l + 40) c h)
+                                        transform: translateY(-50%)
+                                        font-size: 13px
+                                .text
+                                    height: 80px
+                                    padding-top: 5px
+                                    p
+                                        top: 20px
+                                        background-color: $base
+                .preview
+                    background-color: lch(from $base calc( l - 4) c h)
+                    width: 100%
+                    height: calc(100svh - 52px)
+                    padding: 25px
+                    overflow-y: overlay
+                    max-width: 600px
+                    &::-webkit-scrollbar
+                        display: none
+                    @media print
+                        max-width: 100%
+                        padding: 0px
     @media print
         height: fit-content
         header,
