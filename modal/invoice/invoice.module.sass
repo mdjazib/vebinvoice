@@ -22,12 +22,13 @@ $text: lch(3.32 0 0)
         @include flex($j:space-between,$a:flex-start)
         width: 100%
         .col
-            @include flex($g:10px)
+            @include flex($a:flex-start,$g:10px)
             img
                 width: 50px
                 height: 50px
                 object-fit: cover
             .text
+                @include flex($j: flex-start,$a:flex-start ,$d: column,$g:2px)
                 b
                     text-transform: uppercase
                     font-size: 12px

@@ -394,6 +394,11 @@ $text: var(--text-color)
                             font-size: 16px
                             &:hover
                                 background-color: $text
+                            svg
+                                animation: loading .8s linear infinite
+                                @keyframes loading
+                                    100%
+                                        rotate: 360deg
                         .header
                             width: 100%
                             @include flex($j:space-between,$g:10px)
@@ -516,6 +521,18 @@ $text: var(--text-color)
                     @media print
                         max-width: 100%
                         padding: 0px
+                    .temploading
+                        background-color: $base
+                        height: fit-content
+                        padding: 20px
+                        width: 100%
+                        @include flex($j:center,$g:10px)
+                        color: $text
+                        svg
+                            animation: loading .8s linear infinite
+                            @keyframes loading
+                                100%
+                                    rotate: 360deg
     @media print
         height: fit-content
         header,

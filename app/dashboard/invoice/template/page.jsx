@@ -2,12 +2,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import sass from "../../dashboard.module.sass"
 import Invoice from '@/modal/invoice/Invoice'
-import { Minus, Plus, X } from 'lucide-react'
+import { Loader2, Minus, Plus, X } from 'lucide-react'
+import { toast } from 'sonner'
+import axios from 'axios'
 
 const page = () => {
     const ref = useRef();
     const [tab, setTab] = useState(0);
     const [further, setFurther] = useState([{ label: "", value: "" }]);
+    const [saving, setSaving] = useState(false);
+    const [logo, setLogo] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [invoice, setInvoice] = useState(
         {
             company: {
@@ -47,12 +52,39 @@ const page = () => {
         }
     );
     useEffect(() => {
-        setInvoice((prev) => ({ ...prev, further: further[0].label.length ? further : [] }));
+        setInvoice((prev) => ({ ...prev, further: further[0]?.label.length ? further : [{ label: "", value: "" }] }));
     }, [further]);
+    const saveTemplate = async () => {
+        try {
+            if (!saving) {
+                setSaving(true);
+                const formdata = new FormData();
+                formdata.append("invoice", JSON.stringify(invoice));
+                formdata.append("logo", logo);
+                const { data } = await axios.post("/api/invoice/template/save", formdata, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+                data === 200 ? toast.success("Template saved successfully.") : toast.error("Something went wrong.");
+                setSaving(false);
+            }
+        } catch (error) {
+            toast.error("Something went wrong.");
+            setSaving(false);
+        }
+    }
+    useEffect(() => {
+        (async () => {
+            const { data } = await axios.get("/api/invoice/template/fetch");
+            data === 400 ? toast.error("Something went wrong.") : [setInvoice((prev) => ({ ...prev, ...data })), setLogo(data.advanced.logo), setFurther(data.further.length ? data.further : [{ label: "", value: "" }])];
+            setLoading(false);
+        })();
+    }, []);
     return (
         <div className={sass.page}>
             <div className={sass.invoice_generator}>
-                <div className={sass.form}>
+                <div className={sass.form} style={loading ? { pointerEvents: "none" } : {}}>
                     <div className={sass.header}>
                         <h2>Template</h2>
                     </div>
@@ -147,13 +179,13 @@ const page = () => {
                                     {
                                         invoice.advanced.logo === "" ?
                                             <>
-                                                <input type="file" hidden id='companyLogo' accept='image/*' value={invoice.advanced.logo} onChange={(e) => { setInvoice((prev) => ({ ...prev, advanced: { ...prev.advanced, logo: window.URL.createObjectURL(e.target.files[0]) } })) }} />
+                                                <input type="file" hidden id='companyLogo' accept='image/*' value={invoice.advanced.logo} onChange={(e) => {
+                                                    setLogo(e.target.files[0]);
+                                                    setInvoice((prev) => ({ ...prev, advanced: { ...prev.advanced, logo: window.URL.createObjectURL(e.target.files[0]) } }));
+                                                }} />
                                                 <label htmlFor="companyLogo">Choose Logo</label>
                                             </>
-                                            :
-                                            <>
-                                                <label onClick={() => { setInvoice((prev) => ({ ...prev, advanced: { ...prev.advanced, logo: "" } })) }}> Remove Logo</label>
-                                            </>
+                                            : <label onClick={() => { setInvoice((prev) => ({ ...prev, advanced: { ...prev.advanced, logo: "" } })); setLogo(null) }}> Remove Logo</label>
                                     }
                                 </div>
                                 <div className={sass.input}>
@@ -229,9 +261,13 @@ const page = () => {
                             }
                         </div>
                     </div>
-                    <button>Save</button>
+                    <button onClick={saveTemplate} style={saving ? { pointerEvents: "none" } : {}}>{saving ? <Loader2 /> : "Save"}</button>
                 </div>
-                <div className={sass.preview}><Invoice ref={ref} invoice={invoice} /></div>
+                <div className={sass.preview}>
+                    {
+                        loading ? <div className={sass.temploading}><Loader2 /><p>Loading template...</p></div> : <Invoice ref={ref} invoice={invoice} />
+                    }
+                </div>
             </div>
         </div >
     )

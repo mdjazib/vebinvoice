@@ -177,7 +177,7 @@ const Invoice = ({ ref, invoice = {
                     </div> : <></>
             }
             {
-                invoice.further.length ?
+                invoice.further[0]?.label.length ?
                     <div className={sass.further}>
                         <h2>Further details</h2>
                         <div className={sass.grid}>
