@@ -210,7 +210,7 @@ const Invoice = ({ ref, invoice = {
                                             <td>{item.qty}</td>
                                             <td>{item.price}</td>
                                             <td>{(item.price * item.qty) * invoice.advanced.gst / 100}</td>
-                                            <td>{item.qty * (item.price + (item.price * invoice.advanced.gst / 100))}</td>
+                                            <td>{(item.qty * (item.price + (item.price * invoice.advanced.gst / 100))).toFixed(2)}</td>
                                         </tr>
                                     ))
                                 }
