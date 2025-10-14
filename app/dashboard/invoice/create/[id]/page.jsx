@@ -1,19 +1,22 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
-import sass from "../../dashboard.module.sass"
+import sass from "../../../dashboard.module.sass"
 import Invoice from '@/modal/invoice/Invoice'
 import domtoimage from "dom-to-image-more"
 import { toast } from 'sonner'
 import axios from 'axios'
-import { Loader2, Plus, X } from 'lucide-react'
+import { Copy, ImageDown, Loader2, Mail, Plus, Printer, X } from 'lucide-react'
 import { useStore } from '@/useStore'
+import copy from 'copy-to-clipboard'
 
 const page = () => {
     const ref = useRef();
-    const { customer } = useStore();
-    const [invoiceId, setInvoiceId] = useState(0);
+    const { customer, inv } = useStore();
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState([{ description: "", qty: 1, price: 0 }]);
+    const [generating, setGenerating] = useState(false);
+    const [generated, setGenerated] = useState(0);
+    const [sending, setSending] = useState(false);
     const [invoice, setInvoice] = useState(
         {
             company: {
@@ -49,7 +52,8 @@ const page = () => {
                 gst: "10"
             },
             further: [],
-            data: []
+            data: [],
+            void: false,
         }
     );
     const handleImageDownload = async () => {
@@ -71,7 +75,7 @@ const page = () => {
             .then((dataUrl) => {
                 const link = document.createElement("a");
                 link.href = dataUrl;
-                link.download = `#${invoiceId}-vebinvoice.png`;
+                link.download = `#${generated}-vebinvoice.png`;
                 link.click();
             })
             .catch((err) => {
@@ -94,6 +98,52 @@ const page = () => {
     useEffect(() => {
         setInvoice((prev) => ({ ...prev, customer: { ...customer } }));
     }, [customer]);
+    const generateInvoice = async () => {
+        try {
+            if (!generating) {
+                setGenerating(true);
+                const formdata = new FormData();
+                formdata.append("inv", inv);
+                formdata.append("invoice", JSON.stringify(invoice));
+                const { data } = await axios.post("/api/invoice/generate", formdata, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+                setGenerating(false);
+                if (data === 400) {
+                    toast.error("Something went wrong.");
+                } else {
+                    setGenerated(Number(data));
+                }
+            }
+        } catch (error) {
+            toast.error("Something went wrong.");
+            setGenerating(false);
+        }
+    }
+    const sendMail = async () => {
+        try {
+            if (!sending) {
+                setSending(true);
+                const formdata = new FormData();
+                formdata.append("email", invoice.customer.email);
+                formdata.append("company", invoice.company.name.length ? invoice.company.name : "Veb Invoice");
+                formdata.append("url", `${window.location.origin}/${generated}`);
+                formdata.append("id", generated);
+                const { data } = await axios.post("/api/invoice/send", formdata, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+                data === 200 ? toast.success("Invoice has been sent. Delivery may take up to 5 minutes.") : toast.error("Something went wrong.");
+                setSending(false);
+            }
+        } catch (error) {
+            toast.error("Something went wrong.");
+            setSending(false);
+        }
+    }
     return (
         <div className={sass.page}>
             <div className={sass.invoice_generator}>
@@ -155,7 +205,19 @@ const page = () => {
                             }
                         </div>
                     </div>
-                    <button onClick={handleImageDownload}>Download</button>
+                    {
+                        loading ? <></> :
+                            <>
+                                {
+                                    generated === inv ? <div className={sass.cta}>
+                                        <button onClick={handleImageDownload}><ImageDown /><span>Download</span></button>
+                                        <button onClick={() => { window.print() }}><Printer /><span>Print</span></button>
+                                        <button onClick={() => { copy(`${window.location.origin}/${generated}`); toast.success("Invoice link copied!") }}><Copy /><span>Copy Link</span></button>
+                                        {invoice.customer.walkIn ? <></> : <button onClick={sendMail}>{sending ? <><Loader2 /><span>Sending...</span></> : <><Mail /><span>Send Mail</span></>}</button>}
+                                    </div> : <button onClick={generateInvoice}>{generating ? "Generating..." : "Generate Invoice"}</button>
+                                }
+                            </>
+                    }
                 </div>
                 <div className={sass.preview}>
                     {

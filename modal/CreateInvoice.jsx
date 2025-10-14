@@ -66,7 +66,7 @@ const CreateInvoice = ({ setCreateInvoiceModal }) => {
                         toast.error("Something went wrong.");
                     } else {
                         setCustomerInStore(customer);
-                        router.push("/dashboard/invoice/create");
+                        router.push(`/dashboard/invoice/create/${Date.now()}`);
                         setCreateInvoiceModal(false);
                     }
                 } else {
@@ -111,7 +111,7 @@ const CreateInvoice = ({ setCreateInvoiceModal }) => {
                         </> : <></>
                 }
                 <div className={sass.cta}>
-                    {isCustomerExist ? <></> : <button onClick={() => { setCreateInvoiceModal(false); router.push("/dashboard/invoice/create"); setCustomerInStore({ walkIn: true }) }}>Walk-in Customer</button>}
+                    {isCustomerExist ? <></> : <button onClick={() => { setCreateInvoiceModal(false); router.push(`/dashboard/invoice/create/${Date.now()}`); setCustomerInStore({ walkIn: true }) }}>Walk-in Customer</button>}
                     <button onClick={() => { isCustomerExist ? saveCustomer() : findCustomer() }}>{loading ? "Loading..." : "Next"}</button>
                 </div>
             </div>

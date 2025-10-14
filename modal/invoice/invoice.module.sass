@@ -1,5 +1,6 @@
 $kantumruy: var(--font-kantumruy-pro)
 $jomol: var(--font-jomol-hari)
+$barcode: var(--font-barcode)
 $outfit: var(--font-outfit)
 $base: lch(100 0 0)
 $accent: lch(36.94 59.85 9.8)
@@ -39,10 +40,11 @@ $text: lch(3.32 0 0)
                     font-size: 26px
                     line-height: 36px
             &:nth-last-child(1)
-                @include flex($j: flex-start,$a:flex-end ,$d: column)
+                @include flex($j: flex-start,$a:flex-end ,$d: column,$g:5px)
                 p
                     color: lch(from $text calc(l + 50) c h)
-                    font-size: 16px
+                    font-family: $barcode
+                    font-size: 22px
                 b
                     color: lch(from $text calc(l + 20) c h)
                     font-weight: 500

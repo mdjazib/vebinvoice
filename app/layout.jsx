@@ -1,4 +1,4 @@
-import { Jomolhari, Kantumruy_Pro, Outfit } from "next/font/google";
+import { Jomolhari, Kantumruy_Pro, Outfit, Libre_Barcode_39 } from "next/font/google";
 import "./globals.sass";
 import { Toaster } from "sonner";
 
@@ -15,6 +15,12 @@ const outfit = Outfit({
 
 const kantumruyPro = Kantumruy_Pro({
   variable: "--font-kantumruy-pro",
+  subsets: ["latin"],
+});
+
+const barcode = Libre_Barcode_39({
+  variable: "--font-barcode",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -59,7 +65,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${jomolHari.variable} ${kantumruyPro.variable} ${outfit.variable}`}>
+      <body className={`${jomolHari.variable} ${kantumruyPro.variable} ${outfit.variable} ${barcode.variable}`}>
         <Toaster position="top-center" />
         {children}
       </body>

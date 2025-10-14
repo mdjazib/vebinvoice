@@ -48,7 +48,7 @@ const page = () => {
                 gst: "10"
             },
             further: [],
-            data: []
+            data: [],
         }
     );
     useEffect(() => {

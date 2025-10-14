@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const invoiceSchema = new Schema(
     {
         accountId: String,
+        inv: String,
         data: Object,
     }, { timestamps: true }
 )

@@ -35,3 +35,24 @@ $text: lch(3.32 0 0)
         @keyframes loading
             100%
                 rotate: 360deg
+
+.inv-customer-preview
+    @include flex($j:center,$a:flex-start)
+    background-color: lch(from $base calc(l - 6) c h)
+    min-height: 100svh
+    .loading
+        height: 100svh
+        @include flex($j: center,$g: 6px)
+        color: $text
+        svg
+            width: 18px
+            height: 18px
+            animation: loading .8s linear infinite
+            @keyframes loading
+                100%
+                    rotate: 360deg
+    .invoice-module-sass-module__iYERta__veb_invoice_preview
+        max-width: 580px
+        .invoice-module-sass-module__iYERta__details
+            @media (max-width:580px)
+                flex-direction: column

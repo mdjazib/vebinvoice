@@ -399,6 +399,32 @@ $text: var(--text-color)
                                 @keyframes loading
                                     100%
                                         rotate: 360deg
+                        .cta
+                            display: flex
+                            flex-wrap: wrap
+                            width: 100%
+                            gap: 2px
+                            border-radius: 10px
+                            overflow: hidden
+                            border: 2px solid lch(from $base calc(l - 6) c h)
+                            background-color: lch(from $base calc(l - 6) c h)
+                            button
+                                flex-grow: 1
+                                @include flex($j: center,$g: 6px)
+                                width: max-content
+                                font-size: 14px
+                                padding: 0px 10px
+                                background-color: $base
+                                padding: 15px
+                                color: $text
+                                border: unset
+                                border-radius: 0px
+                                svg
+                                    animation: unset
+                                    width: 18px
+                                    height: 18px
+                                &:hover
+                                    background-color: lch(from $base calc(l - 2) c h)
                         .header
                             width: 100%
                             @include flex($j:space-between,$g:10px)
@@ -409,11 +435,11 @@ $text: var(--text-color)
                                 color: $text
                         .group
                             width: 100%
-                            border-radius: 10px
                             min-height: fit-content
+                            border-radius: 10px
                             border: 2px solid lch(from $base calc(l - 6) c h)
-                            @include flex($a: flex-start,$d: column,$g: 2px)
                             background-color: lch(from $base calc(l - 6) c h)
+                            @include flex($a: flex-start,$d: column,$g: 2px)
                             overflow: hidden
                             .childheader
                                 transition: .2s ease
@@ -515,7 +541,6 @@ $text: var(--text-color)
                     height: calc(100svh - 52px)
                     padding: 25px
                     overflow-y: overlay
-                    max-width: 600px
                     &::-webkit-scrollbar
                         display: none
                     @media print

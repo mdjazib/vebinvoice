@@ -21,7 +21,7 @@ export async function middleware(req) {
     }
 
     if (req.nextUrl.pathname === '/dashboard') {
-        return NextResponse.redirect(new URL("/dashboard/invoice/create", req.url))
+        return NextResponse.redirect(new URL(`/dashboard/invoice/create/${Date.now()}`, req.url))
     }
 
     if (req.nextUrl.pathname.startsWith('/dashboard')) {

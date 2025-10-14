@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import sass from "./invoice.module.sass"
 import Image from 'next/image'
+import { useStore } from '@/useStore'
 
 const Invoice = ({ ref, invoice = {
     company: {
@@ -39,6 +40,7 @@ const Invoice = ({ ref, invoice = {
     further: [],
     data: []
 } }) => {
+    const { setINV, inv } = useStore();
     const [subtotal, setSubTotal] = useState(0);
     useEffect(() => {
         if (invoice.data.length) {
@@ -46,6 +48,9 @@ const Invoice = ({ ref, invoice = {
             setSubTotal(invoice.data.map(e => e.price * e.qty).reduce(sum, 0));
         }
     }, [invoice.data]);
+    useEffect(() => {
+        setINV(Date.now());
+    }, [invoice]);
     return (
         <div ref={ref} className={sass.veb_invoice_preview}>
             <div className={sass.header}>
@@ -57,7 +62,8 @@ const Invoice = ({ ref, invoice = {
                     </div>
                 </div>
                 <div className={sass.col}>
-                    <b>INV #{Date.now()}</b>
+                    <b>INV #{Number(inv)}</b>
+                    <p>{Number(inv)}</p>
                 </div>
             </div>
             {

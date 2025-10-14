@@ -77,7 +77,7 @@ const RootLayout = ({ children }) => {
                     </ul> */}
                     <ul>
                         <li><h5>Invoice</h5></li>
-                        <li><Link href="javascript:void(0)" className={pathname === "/dashboard/invoice/create" ? sass.active : sass.inactive} onClick={() => { setCreateInvoiceModal(!createInvoiceModal) }}><BadgePlus /><span>New Invoice</span></Link></li>
+                        <li><Link href="javascript:void(0)" className={pathname.includes("/dashboard/invoice/create") ? sass.active : sass.inactive} onClick={() => { setCreateInvoiceModal(!createInvoiceModal) }}><BadgePlus /><span>New Invoice</span></Link></li>
                         <li><Link href="/dashboard/invoice/view"><ScrollText /><span>All Invoices</span></Link></li>
                         <li><Link href="/dashboard/invoice/template" className={pathname === "/dashboard/invoice/template" ? sass.active : sass.inactive}><Scroll /><span>Template</span></Link></li>
                     </ul>
